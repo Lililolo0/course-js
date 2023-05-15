@@ -39,7 +39,7 @@
       <div class="col col-todo">
         <div class="col__header">
           <div class="col__title">Todo</div>
-          <div class="col__counter">12</div>
+          <div id="counterTodo" class="col__counter">0</div>
         </div>
         <hr>
 
@@ -78,28 +78,6 @@
               </form>
             </div>
           </div>
-
-
-          <!-- модальное окно для удаления карточки -->
-          <!-- Modal -->
-          <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Warning</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">Are you shure?</div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Delete card</button>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-          <!-- </div>
-          </div> -->
         </div>
 
 
@@ -111,16 +89,11 @@
         </div>
       </div>
 
-
-
-
-
-
       <!-- карточка в прогрессе -->
       <div class="col col-in-progress">
         <div class="col__header">
           <div class="col__title">In progress</div>
-          <div class="col__counter">12</div>
+          <div id="counterInProgress" class="col__counter">0</div>
         </div>
         <hr>
         <!-- сюда закидываем карточки -->
@@ -133,7 +106,7 @@
       <div class="col col-done">
         <div class="col__header">
           <div class="col__title">Done</div>
-          <div class="col__counter">12</div>
+          <div id="counterDone" class="col__counter">0</div>
         </div>
         <hr>
         <!-- сюда закидываем карточки -->
@@ -141,12 +114,12 @@
         <hr>
         <div class="col__button">
           <button type="button" class="btn btn-danger btn-bottom" data-bs-toggle="modal"
-            data-bs-target="#exampleModal">Remove all</button>
+            data-bs-target="#ModalDeleteAll">Remove all</button>
         </div>
 
 
         <!-- модальное окно для удаления всех карточек -->
-        <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="ModalDeleteAll" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -156,22 +129,14 @@
               <div class="modal-body">Are you shure?</div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Delete all</button>
+                <button id="deleteAllCards" type="button" class="btn btn-primary">Delete all</button>
               </div>
             </div>
           </div>
         </div>
-
-
       </div>
-
     </div>
-
   </div>
-
-
-
-
 </body>
 
 </html>

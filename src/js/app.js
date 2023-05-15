@@ -1,14 +1,11 @@
 import { Todo } from './constructor'
 import { render } from './render'
-import { buildTodoTemplate } from './template'
+import { renderCounters, buildTemplateTodo, buildTemplateProgress, buildTemplateDone } from './counter'
 
 // bootstrap import
 import { Modal } from 'bootstrap'
 
-
-
-// кнопка CONFIRM для передачи текста из модального окна с формой в саму карточку
-
+// variables
 const confirmCardContentElement = document.querySelector('#confirmCardContent')
 const inputTitleElement = document.querySelector('#inputTitleElement')
 const inputContentElement = document.querySelector('#inputContentElement')
@@ -19,13 +16,19 @@ const selectUserElement = document.querySelector('#selectUser')
 const colCardsInProgressElement = document.querySelector('#cardsInProgress')
 const colCardsDoneElement = document.querySelector('#cardsDone')
 const boxElement = document.querySelector('#box')
-const modalInstance = Modal.getOrCreateInstance(modalElement)
-const deleteCardElement = document.querySelector('#deleteCardElement')
+const buttondeleteAllCardsElement = document.querySelector('#deleteAllCards')
+
+const counterTodoElement = document.querySelector('#counterTodo')
+const counterInProgressElement = document.querySelector('#counterInProgress')
+const counterDoneElement = document.querySelector('#counterDone')
+
+// const modalInstance = Modal.getOrCreateInstance(modalEditElement)
 
 
 // Listeners
 confirmCardContentElement.addEventListener('click', handleSubmitForm)
-addCardElement.addEventListener('click', handleDeleteCard)
+boxElement.addEventListener('click', handleDeleteCard)
+buttondeleteAllCardsElement.addEventListener('click', handleDeleteAllCards)
 
 
 
@@ -40,6 +43,7 @@ function handleSubmitForm(event) {
   const todo = new Todo(titleValue, contentValue, userValue)
   data.push(todo)  // в массив data закидываем конструктор todo
   render(data, addCardElement, colCardsInProgressElement, colCardsDoneElement)
+  renderCounters(data, counterTodoElement, counterInProgressElement, counterDoneElement)
 
   // modalInstance.hide()
   formElement.reset()
@@ -53,8 +57,8 @@ function handleDeleteCard(event) {
     return
   }
   target.closest('.card').remove();
+  renderCounters(data, counterTodoElement, counterInProgressElement, counterDoneElement)
 }
-
 
 // change status
 boxElement.addEventListener('change', handleChangeStatus)
@@ -62,22 +66,41 @@ boxElement.addEventListener('change', handleChangeStatus)
 function handleChangeStatus(event) {
   const { target } = event
   const { role, id } = target.dataset
+  let countProgress = 0
 
+  data.forEach((item) => {
+    item.status == 'inProgress' ? countProgress++ : ''
+  })
 
-  if (role == 'select') {
-
+  if (role == 'select' && countProgress == 6 && target.value == 'inProgress') {
+    alert('No more than 6 cases can be in this column')
     data.forEach((item) => {
       if (item.status == 'todo') {
         target.value = 'todo'
-      } else if (item.status == 'done') {
+      }
+      if (item.status == 'done') {
         target.value = 'done'
-      } else if (item.status == 'inProgress') {
-        target.value = 'inProgress'
       }
     })
-  }
+    return
+  } else if (role == 'select') {
+    data.forEach((item) => {
+      if (item.id == id) {
+        item.status = target.value
+      }
+    })
     render(data, addCardElement, colCardsInProgressElement, colCardsDoneElement)
+    renderCounters(data, counterTodoElement, counterInProgressElement, counterDoneElement)
+
   }
+}
+
+// delete all done cards
+function handleDeleteAllCards () {
+  data.length = 0
+  render(data, colCardsDoneElement)
+}
+
 
 // таймер
 const timerElement = document.querySelector('#timer')
@@ -93,3 +116,4 @@ function showTime() {
 }
 
 showTime()
+

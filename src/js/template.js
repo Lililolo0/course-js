@@ -13,7 +13,7 @@ function buildTodoTemplate(todo) {
     <p class="card-text">${todo.content}</p>
     <div class="card-user">${todo.user}</div>
     <div class="card__footer">
-      <select id="selectStatus" class="form-select form-select-sm" aria-label=".form-select-sm example" data-id="${todo.id}">
+      <select id="selectStatus" data-role="select" class="form-select form-select-sm" aria-label=".form-select-sm example" data-id="${todo.id}">
         <option value="todo" ${statusTodo}>Todo</option>
         <option value="inProgress" ${statusInProgress}>In progress</option>
         <option value="done" ${statusDone}>Done</option>
