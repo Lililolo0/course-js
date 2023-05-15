@@ -11,107 +11,167 @@
 </head>
 
 <body>
-  <div class="header">
+
+  <!-- шапка приложения -->
+  <header>
     <div class="container">
-      <div class="header__row">
-        <img class="header__logo" src="./images/trello.svg" alt="logo">
-        <div id="clock" class="clock"></div>
-      </div>
-    </div>
-  </div>
-  <div class="content">
-    <div class="container">
-      <div class="content__counter">
-        <div id="contentCountTodo" class="content__top"></div>
-        <div id="contentCountProgress" class="content__top"></div>
-        <div id="contentCountDone" class="content__top"></div>
-      </div>
-
-      <div id="row" class="content__row">
-        <!-- col Todo -->
-
-        <div class="content__col">
-
-          <div id="todo" class="card"></div>
-          <button id="btnAdd" class="btn btn-primary btn__todo" data-role="addTodo">Add Todo</button>
+      <div class="header__content">
+        <div class="header__title">
+          <h2>Trello</h2>
         </div>
-        <!-- col inProgress -->
-        <div class="content__col">
 
-          <div id="inProgress" class="card"></div>
-        </div>
-        <!-- col Done -->
-        <div class="content__col">
-
-          <div id="done" class="card"></div>
-          <button id="btnRemoveAll" class="btn btn-danger btn__todo">Remove All</button>
+        <!-- таймер -->
+        <div class="header__timer">
+          <div id="timer">0</div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- modal -->
-  <div id="modal" class="modal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content modal__content">
-        <div class="modal-header">
-          <h5 class="modal-title fs-1 fw-bold">Create a Todo</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+  </header>
+
+
+
+  <div class="container">
+
+    <div id="box" class="box">
+
+      <!-- карточка todo -->
+      <div class="col col-todo">
+        <div class="col__header">
+          <div class="col__title">Todo</div>
+          <div class="col__counter">12</div>
         </div>
-        <div class="modal-body">
-          <form id="form" class="form" action="#">
-            <input id="modalTitle" class="modal__input" type="text" placeholder="Title">
-            <textarea id="modalTextarea" class="modal__textarea" cols="30" rows="10"
-              placeholder="Enter text"></textarea>
-            <select id="selectColor" class="card__select">
-              <option selected>Color</option>
-              <option value="bg-secondary text-white">Secondary</option>
-              <option value="bg-info text-dark">Info</option>
-              <option value="bg-warning text-dark">Warning</option>
-              <option value="bg-success text-white">Success</option>
-            </select>
-            <select id="selectUser" class="card__select"></select>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button id="saveBtnModal" type="submit" class="btn btn-primary">Save card</button>
+        <hr>
+
+        <!-- модальное окно с формой, чтобы создать карточку -->
+        <div class="modal fade" id="addNewCardModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form id="form">
+                <div class="modal-header" style="display: block;">
+                  <div class="mb-3">
+                    <input id="inputTitleElement" type="text" class="form-control" placeholder="Title"
+                      style="width: 50%;">
+                  </div>
+                  <div class="mb-3">
+                    <textarea class="form-control" id="inputContentElement" placeholder="Description"
+                      rows="3"></textarea>
+                  </div>
+                </div>
+                <div class="modal-body">
+                  <select id="selectUser" class="form-select" aria-label="Default select example">
+                    <option selected>Select user</option>
+                    <option>Jack</option>
+                    <option>Adam</option>
+                    <option>Brad</option>
+                    <option>John</option>
+                    <option>Oliver</option>
+                    <option>Harry</option>
+                    <option>Charley</option>
+                    <option>Oscar</option>
+                    <option>Thomas</option>
+                  </select>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button id="confirmCardContent" class="btn btn-primary">Confirm</button>
+                </div>
+              </form>
             </div>
-          </form>
+          </div>
+
+
+          <!-- модальное окно для удаления карточки -->
+          <!-- Modal -->
+          <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Warning</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">Are you shure?</div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Delete card</button>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+          <!-- </div>
+          </div> -->
+        </div>
+
+
+        <div id="cardsTodo" class="col__cards"></div>
+        <hr>
+        <div class="col__button">
+          <button id="addCard" type="button" class="btn btn-primary btn-bottom" data-bs-toggle="modal"
+            data-bs-target="#addNewCardModal">Add Todo</button>
         </div>
       </div>
-    </div>
-  </div>
-  <!-- modal edit -->
-  <div id="editModal" class="modal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content modal__content">
-        <div class="modal-header">
-          <h5 class="modal-title fs-1 fw-bold">Create a Todo</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+
+
+
+
+
+      <!-- карточка в прогрессе -->
+      <div class="col col-in-progress">
+        <div class="col__header">
+          <div class="col__title">In progress</div>
+          <div class="col__counter">12</div>
         </div>
-        <div class="modal-body">
-          <form id="editForm" class="form" action="#">
-            <input id="modalEditTitle" class="modal__input" type="text" placeholder="Title">
-            <textarea id="modalEditTextarea" class="modal__textarea" cols="30" rows="10"
-              placeholder="Enter text"></textarea>
-            <select id="selectEditColor" class="card__select">
-              <option selected>Color</option>
-              <option value="bg-secondary text-white">Secondary</option>
-              <option value="bg-info text-dark">Info</option>
-              <option value="bg-warning text-dark">Warning</option>
-              <option value="bg-success text-white">Success</option>
-            </select>
-            <input type="hidden" id="editId">
-            <input type="hidden" id="editStatus">
-            <input type="hidden" id="editDate">
-            <select id="selectEditUser" class="card__select"></select>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button id="saveEditBtnModal" type="submit" class="btn btn-primary">Save card</button>
+        <hr>
+        <!-- сюда закидываем карточки -->
+        <div id="cardsInProgress" class="col__cards"></div>
+      </div>
+
+
+
+      <!-- карточка DONE -->
+      <div class="col col-done">
+        <div class="col__header">
+          <div class="col__title">Done</div>
+          <div class="col__counter">12</div>
+        </div>
+        <hr>
+        <!-- сюда закидываем карточки -->
+        <div id="cardsDone" class="col__cards"></div>
+        <hr>
+        <div class="col__button">
+          <button type="button" class="btn btn-danger btn-bottom" data-bs-toggle="modal"
+            data-bs-target="#exampleModal">Remove all</button>
+        </div>
+
+
+        <!-- модальное окно для удаления всех карточек -->
+        <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel">Warning</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">Are you shure?</div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Delete all</button>
+              </div>
             </div>
-          </form>
+          </div>
         </div>
+
+
       </div>
+
     </div>
+
   </div>
+
+
+
+
 </body>
 
 </html>

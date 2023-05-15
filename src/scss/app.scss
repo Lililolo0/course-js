@@ -1,17 +1,14 @@
 // Boostrap
 @import 'bootstrap/scss/bootstrap';
 
-// Nullstyle
-@import './reset';
-
-// Base
-@import './scafold';
-
 // Components
+@import './base';
 @import './container';
 @import './header';
-@import './content';
+@import './main';
 @import './card';
-@import './btn';
 @import './modal';
-@import './clock';
+
+
+
+

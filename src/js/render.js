@@ -1,10 +1,12 @@
-import { buildTodoTemplate, buildTemplateTodo, buildTemplateProgress, buildTemplateDone } from "./template"
+import { buildTodoTemplate } from "./template"
 
-// Render
 function render(data, todoColumn, progressColumn, doneColumn) {
+  // переменные для трех колонок
   let todoTemplates = ''
   let inProgressTemplates = ''
   let doneTemplates = ''
+
+  // перебираем массив карточек и закидываем в каждую item сам текст из шаблона
   data.forEach((item) => {
     const template = buildTodoTemplate(item)
 
@@ -15,28 +17,7 @@ function render(data, todoColumn, progressColumn, doneColumn) {
 
   todoColumn.innerHTML = todoTemplates
   progressColumn.innerHTML = inProgressTemplates
-  doneColumn.innerHTML = doneTemplates
+  doneColumn.innerHTML = doneTemplates  // в колонки закидываем массив с карточками
 }
 
-// Render count
-function renderCounters(collection, todoCount, inProgressCount, doneCount) {
-  let todo = 0
-  let inProgress = 0
-  let done = 0
-
-  collection.forEach((item) => {
-    item.status == 'todo' ? todo++ : ''
-    item.status == 'inProgress' ? inProgress++ : ''
-    item.status == 'done' ? done++ : ''
-  })
-
-  const templateTodo = buildTemplateTodo(todo)
-  const templateProgress = buildTemplateProgress(inProgress)
-  const templateDone = buildTemplateDone(done)
-
-  todoCount.innerHTML = templateTodo
-  inProgressCount.innerHTML = templateProgress
-  doneCount.innerHTML = templateDone
-}
-
-export { render, renderCounters }
+export { render }

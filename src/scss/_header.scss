@@ -1,16 +1,8 @@
-.header {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-
-  &__row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #07f2e6;
-    padding: 0 20px;
-    border-radius: 30px;
-    border: 1px solid #041ff2;
-  }
-
-  // &__logo {}
+.header__content {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px 35px;
+  background-color: rgba(159, 187, 242, 0.568);
+  border: 1px solid rgb(95, 95, 201);
+  border-radius: 30px;
 }
